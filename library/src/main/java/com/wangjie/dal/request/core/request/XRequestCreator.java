@@ -1,4 +1,4 @@
-package com.wangjie.dal.request.core;
+package com.wangjie.dal.request.core.request;
 
 /**
  * Author: wangjie

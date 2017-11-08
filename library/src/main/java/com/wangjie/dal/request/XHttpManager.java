@@ -1,4 +1,4 @@
-package com.wangjie.dal.request.core;
+package com.wangjie.dal.request;
 
 
 import com.wangjie.dal.request.core.interceptor.IOriginResponseInterceptor;

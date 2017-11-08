@@ -5,12 +5,13 @@ import com.google.gson.Gson;
 import android.net.Uri;
 import android.util.Log;
 
-import com.wangjie.dal.request.core.XHttpManager;
-import com.wangjie.dal.request.core.XRequest;
+import com.wangjie.dal.request.core.XHttpClient;
+import com.wangjie.dal.request.core.request.XRequest;
 import com.wangjie.dal.request.core.body.XMultiBody;
 import com.wangjie.dal.request.core.interceptor.IOriginResponseInterceptor;
 import com.wangjie.dal.request.core.interceptor.IRequestInterceptor;
 import com.wangjie.dal.request.core.interceptor.IResponseInterceptor;
+import com.wangjie.dal.request.core.request.XRequestBuilder;
 import com.wangjie.dal.request.gson.DalGsonHelper;
 import com.wangjie.dal.request.util.ExceptionUtil;
 

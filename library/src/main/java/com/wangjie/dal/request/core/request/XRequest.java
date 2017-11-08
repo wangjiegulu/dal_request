@@ -1,4 +1,4 @@
-package com.wangjie.dal.request.core;
+package com.wangjie.dal.request.core.request;
 
 import com.google.gson.Gson;
 

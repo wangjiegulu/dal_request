@@ -1,9 +1,9 @@
-package com.wangjie.dal.request.library.gson.configuration;
+package com.wangjie.dal.request.gson.configuration;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 
-import com.dangbei.xlog.XLog;
+import android.util.Log;
 
 /**
  * Author: wangjie
@@ -19,7 +19,7 @@ public class AnnotationSerializationExclusionStrategy implements ExclusionStrate
             GsonExclude gsonExclude = f.getAnnotation(GsonExclude.class);
             return null != gsonExclude && gsonExclude.serialize();
         } catch (Throwable throwable) {
-            XLog.e(TAG, throwable);
+            Log.e(TAG, "", throwable);
         }
         return false;
     }

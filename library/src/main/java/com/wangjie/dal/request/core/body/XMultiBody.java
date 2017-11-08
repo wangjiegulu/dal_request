@@ -1,4 +1,4 @@
-package com.wangjie.dal.request.library.core.body;
+package com.wangjie.dal.request.core.body;
 
 import okhttp3.RequestBody;
 

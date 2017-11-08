@@ -1,4 +1,4 @@
-package com.wangjie.dal.request.library.ssl;
+package com.wangjie.dal.request.ssl;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;

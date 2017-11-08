@@ -1,4 +1,4 @@
-package com.wangjie.dal.request.library.gson.configuration;
+package com.wangjie.dal.request.gson.configuration;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

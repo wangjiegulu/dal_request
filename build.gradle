@@ -30,8 +30,6 @@ allprojects {
         global_supportVersion = '26.1.0'
         global_constraintLayoutVersion = "1.0.2"
 
-        global_xlogVersion = '1.0.1'
-
         global_okhttpVersion = '3.4.1'
         global_gsonVersion = '2.8.0'
         global_rxjavaVersion = '2.1.2'

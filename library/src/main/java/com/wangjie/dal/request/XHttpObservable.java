@@ -1,19 +1,18 @@
-package com.wangjie.dal.request.library;
+package com.wangjie.dal.request;
 
 import com.google.gson.Gson;
 
 import android.net.Uri;
+import android.util.Log;
 
-import com.dangbei.xlog.XLog;
-import com.wangjie.dal.request.library.core.XHttpManager;
-import com.wangjie.dal.request.library.core.XRequest;
-import com.wangjie.dal.request.library.core.body.XMultiBody;
-import com.wangjie.dal.request.library.core.interceptor.IOriginResponseInterceptor;
-import com.wangjie.dal.request.library.core.interceptor.IRequestInterceptor;
-import com.wangjie.dal.request.library.core.interceptor.IResponseInterceptor;
-import com.wangjie.dal.request.library.gson.DalGsonHelper;
-import com.wangjie.dal.request.library.response.DalBaseResponse;
-import com.wangjie.dal.request.library.util.ExceptionUtil;
+import com.wangjie.dal.request.core.XHttpManager;
+import com.wangjie.dal.request.core.XRequest;
+import com.wangjie.dal.request.core.body.XMultiBody;
+import com.wangjie.dal.request.core.interceptor.IOriginResponseInterceptor;
+import com.wangjie.dal.request.core.interceptor.IRequestInterceptor;
+import com.wangjie.dal.request.core.interceptor.IResponseInterceptor;
+import com.wangjie.dal.request.gson.DalGsonHelper;
+import com.wangjie.dal.request.util.ExceptionUtil;
 
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
@@ -101,13 +100,13 @@ public class XHttpObservable {
                 try {
                     closeable.close();
                 } catch (Throwable throwable) {
-                    XLog.e(TAG, throwable);
+                    Log.e(TAG, "", throwable);
                 }
             }
         }
     }
 
-    public <T extends DalBaseResponse> Observable<T> create(final XRequest xRequest, final Class<T> httpResponseClass) {
+    public <T> Observable<T> create(final XRequest xRequest, final Class<T> httpResponseClass) {
         return Observable.create(new ObservableOnSubscribe<T>() {
             @Override
             public void subscribe(ObservableEmitter<T> emitter) throws Exception {
@@ -170,9 +169,11 @@ public class XHttpObservable {
 
                     t = gson.fromJson(reader = new InputStreamReader(new ByteArrayInputStream(responseBytes)), httpResponseClass);
 //                    t = gson.fromJson(reader, httpResponseClass);
-                    XLog.d(TAG, "xRequest-url: " + xRequest.getUrl());
-                    if (null != t) {
-                        XLog.d(TAG, "response: " + t.toString());
+                    if(XHttpManager.getInstance().isDebug()){
+                        Log.d(TAG, "xRequest-url: " + xRequest.getUrl());
+                    }
+                    if (null != t && XHttpManager.getInstance().isDebug()) {
+                        Log.d(TAG, "response: " + t.toString());
                     }
 
                     if (!emitter.isDisposed()) {
@@ -180,8 +181,10 @@ public class XHttpObservable {
                         emitter.onComplete();
                     }
                 } catch (Throwable throwable) {
-                    XLog.e(TAG, "xRequest-url: " + xRequest.getUrl());
-                    XLog.e(TAG, "", throwable);
+                    if(XHttpManager.getInstance().isDebug()){
+                        Log.e(TAG, "xRequest-url: " + xRequest.getUrl());
+                    }
+                    Log.e(TAG, "", throwable);
                     if (!emitter.isDisposed()) {
                         emitter.onError(throwable);
                     }
@@ -194,10 +197,12 @@ public class XHttpObservable {
                 .retry(new BiPredicate<Integer, Throwable>() {
                     @Override
                     public boolean test(Integer integer, Throwable throwable) throws Exception {
-                        XLog.w(TAG, "throwable: " + throwable);
+                        if(XHttpManager.getInstance().isDebug()){
+                            Log.w(TAG, "throwable: " + throwable);
+                        }
                         boolean retry = integer < RETRY_MAX_COUNT && ExceptionUtil.isNetworkError(throwable);
-                        if (retry) {
-                            XLog.w(TAG, "retry: " + integer + ", request: " + xRequest);
+                        if (retry && XHttpManager.getInstance().isDebug()) {
+                            Log.w(TAG, "retry: " + integer + ", request: " + xRequest);
                         }
                         return retry;
                     }
@@ -219,6 +224,7 @@ public class XHttpObservable {
                 });
 
     }
+
 }
 
 

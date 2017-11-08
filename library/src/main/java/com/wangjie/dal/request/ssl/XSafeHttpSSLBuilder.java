@@ -1,4 +1,4 @@
-package com.wangjie.dal.request.library.ssl;
+package com.wangjie.dal.request.ssl;
 
 /**
  * Author: wangjie Email: tiantian.china.2@gmail.com Date: 12/7/16.

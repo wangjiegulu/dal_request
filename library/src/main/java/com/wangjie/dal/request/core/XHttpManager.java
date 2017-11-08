@@ -1,9 +1,9 @@
-package com.wangjie.dal.request.library.core;
+package com.wangjie.dal.request.core;
 
 
-import com.wangjie.dal.request.library.core.interceptor.IOriginResponseInterceptor;
-import com.wangjie.dal.request.library.core.interceptor.IRequestInterceptor;
-import com.wangjie.dal.request.library.core.interceptor.IResponseInterceptor;
+import com.wangjie.dal.request.core.interceptor.IOriginResponseInterceptor;
+import com.wangjie.dal.request.core.interceptor.IRequestInterceptor;
+import com.wangjie.dal.request.core.interceptor.IResponseInterceptor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,7 @@ import java.util.List;
  * Author: wangjie Email: tiantian.china.2@gmail.com Date: 11/18/16.
  */
 public class XHttpManager {
+    private boolean isDebug = false;
     /**
      * 请求拦截器
      */
@@ -28,6 +29,15 @@ public class XHttpManager {
 
     public static XHttpManager getInstance() {
         return Holder.instance;
+    }
+
+    public XHttpManager setDebug(boolean debug){
+        this.isDebug = debug;
+        return this;
+    }
+
+    public boolean isDebug() {
+        return isDebug;
     }
 
     public XHttpManager addRequestInterceptor(IRequestInterceptor requestInterceptor) {

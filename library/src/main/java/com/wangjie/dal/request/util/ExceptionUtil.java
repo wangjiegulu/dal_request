@@ -1,4 +1,4 @@
-package com.wangjie.dal.request.library.util;
+package com.wangjie.dal.request.util;
 
 import java.net.SocketException;
 import java.net.SocketTimeoutException;

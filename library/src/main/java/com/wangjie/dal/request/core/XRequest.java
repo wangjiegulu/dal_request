@@ -1,15 +1,14 @@
-package com.wangjie.dal.request.library.core;
+package com.wangjie.dal.request.core;
 
 import com.google.gson.Gson;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
+import android.util.Log;
 
-import com.dangbei.xlog.XLog;
-import com.wangjie.dal.request.library.XHttpObservable;
-import com.wangjie.dal.request.library.core.body.XMultiBody;
-import com.wangjie.dal.request.library.response.DalBaseResponse;
+import com.wangjie.dal.request.XHttpObservable;
+import com.wangjie.dal.request.core.body.XMultiBody;
 
 import java.io.File;
 import java.util.HashMap;
@@ -136,11 +135,11 @@ public class XRequest {
         return this;
     }
 
-    public XRequest addFileParameter(String name, String filename, String mediaType, byte[] fileByte) {
+    public XRequest addFileParameter(String name, String filename, String mediaType, byte[] fileBytes) {
         if (null == fileParameters) {
             fileParameters = new TreeMap<>();
         }
-        fileParameters.put(name, new XMultiBody(filename, RequestBody.create(MediaType.parse(mediaType), fileByte)));
+        fileParameters.put(name, new XMultiBody(filename, RequestBody.create(MediaType.parse(mediaType), fileBytes)));
         return this;
     }
 
@@ -180,7 +179,7 @@ public class XRequest {
         return parameters.containsKey(name);
     }
 
-    public <T extends DalBaseResponse> Observable<T> observable(Class<T> responseClass) {
+    public <T> Observable<T> observable(Class<T> responseClass) {
         return new XHttpObservable().create(this, responseClass);
     }
 
@@ -209,7 +208,7 @@ public class XRequest {
         }
         Class valueActualClass = value.getClass();
         if (valueActualClass != tClass) {
-            XLog.e(TAG, "getConfiguration() failed[" + key + "], expect: " + tClass + ", actual: " + valueActualClass);
+            Log.e(TAG, "getConfiguration() failed[" + key + "], expect: " + tClass + ", actual: " + valueActualClass);
             return null;
         }
         return tClass.cast(value);

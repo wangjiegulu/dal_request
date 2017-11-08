@@ -1,9 +1,10 @@
-package com.wangjie.dal.request.library;
+package com.wangjie.dal.request;
 
 
-import com.dangbei.xlog.XLog;
-import com.wangjie.dal.request.library.ssl.XHttpSSLBuilder;
-import com.wangjie.dal.request.library.ssl.XUnsafeHttpSSLBuilder;
+import android.util.Log;
+
+import com.wangjie.dal.request.ssl.XHttpSSLBuilder;
+import com.wangjie.dal.request.ssl.XUnsafeHttpSSLBuilder;
 
 import java.util.Arrays;
 
@@ -39,7 +40,7 @@ public final class XHttpClient {
             okHttpClientBuilder.protocols(Arrays.asList(Protocol.HTTP_1_1));
             okHttpClientBuilder.hostnameVerifier(xHttpSSLBuilder.getHostnameVerifier());
         } catch (Exception e) {
-            XLog.e(TAG, e);
+            Log.e(TAG, "", e);
         }
         return okHttpClientBuilder.build();
     }
@@ -51,7 +52,7 @@ public final class XHttpClient {
             okHttpClientBuilder.protocols(Arrays.asList(Protocol.HTTP_1_1));
             okHttpClientBuilder.hostnameVerifier(xHttpSSLBuilder.getHostnameVerifier());
         } catch (Exception e) {
-            XLog.e(TAG, e);
+            Log.e(TAG, "", e);
         }
         return okHttpClientBuilder;
     }

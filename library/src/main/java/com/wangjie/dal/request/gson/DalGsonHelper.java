@@ -1,10 +1,10 @@
-package com.wangjie.dal.request.library.gson;
+package com.wangjie.dal.request.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import com.wangjie.dal.request.library.gson.configuration.AnnotationDeserializationExclusionStrategy;
-import com.wangjie.dal.request.library.gson.configuration.AnnotationSerializationExclusionStrategy;
+import com.wangjie.dal.request.gson.configuration.AnnotationDeserializationExclusionStrategy;
+import com.wangjie.dal.request.gson.configuration.AnnotationSerializationExclusionStrategy;
 
 
 /**

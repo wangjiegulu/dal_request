@@ -32,9 +32,6 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$global_rxjavaVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$global_rxandroidVersion"
 
-    // xlog
-    implementation "com.dangbei:xlog:$global_xlogVersion"
-
     testImplementation "junit:junit:$global_junitVersion"
     androidTestImplementation "com.android.support.test:runner:$global_runnerVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$global_espressoVersion"

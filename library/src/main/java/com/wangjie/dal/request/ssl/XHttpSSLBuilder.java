@@ -1,4 +1,4 @@
-package com.wangjie.dal.request.library.ssl;
+package com.wangjie.dal.request.ssl;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSocketFactory;

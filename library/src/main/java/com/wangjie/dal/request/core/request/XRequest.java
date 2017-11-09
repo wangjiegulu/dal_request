@@ -190,11 +190,12 @@ public class XRequest {
     /**
      * 增加一个key-value配置
      */
-    public void addConfiguration(String key, Object configuration) {
+    public XRequest addConfiguration(String key, Object configuration) {
         if (null == requestConfigurations) {
             requestConfigurations = new HashMap<>();
         }
         requestConfigurations.put(key, configuration);
+        return this;
     }
 
     @Nullable

@@ -24,6 +24,12 @@ import okhttp3.RequestBody;
 public class XRequest {
     public static final String METHOD_GET = "Get";
     public static final String METHOD_POST = "Post";
+    private static final int TIME_OUT_SECONDS = 30;
+    /**
+     * 最多重试次数
+     */
+    private static final int RETRY_MAX_COUNT = 3;
+
     private static final String TAG = XRequest.class.getSimpleName();
 
     /**
@@ -38,6 +44,9 @@ public class XRequest {
 
     private TreeMap<String, String> headers;
 
+    private int retryCount = RETRY_MAX_COUNT;
+
+    private long timeoutSeconds = TIME_OUT_SECONDS;
     /**
      * 请求参数，指原始的请求参数，比如参数提交前如果需要加密，则这里的参数是指加密之前的参数
      */
@@ -99,6 +108,15 @@ public class XRequest {
         return this;
     }
 
+    public int getRetryCount() {
+        return retryCount;
+    }
+
+    public XRequest setRetryCount(int retryCount) {
+        this.retryCount = retryCount;
+        return this;
+    }
+
     @Nullable
     public TreeMap<String, String> getHeaders() {
         return headers;
@@ -150,6 +168,15 @@ public class XRequest {
 
     public XRequest gson(Gson gson) {
         this.gson = gson;
+        return this;
+    }
+
+    public long getTimeoutSeconds() {
+        return timeoutSeconds;
+    }
+
+    public XRequest setTimeoutSeconds(long timeoutSeconds) {
+        this.timeoutSeconds = timeoutSeconds;
         return this;
     }
 

@@ -7,6 +7,7 @@ import com.wangjie.dal.request.ssl.XHttpSSLBuilder;
 import com.wangjie.dal.request.ssl.XUnsafeHttpSSLBuilder;
 
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Protocol;
@@ -37,7 +38,10 @@ public final class XHttpClient {
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient().newBuilder();
         try {
             okHttpClientBuilder.sslSocketFactory(xHttpSSLBuilder.getSslSocketFactory(), xHttpSSLBuilder.getX509TrustManager());
-            okHttpClientBuilder.protocols(Arrays.asList(Protocol.HTTP_1_1));
+            okHttpClientBuilder.protocols(Arrays.asList(Protocol.HTTP_1_1, Protocol.HTTP_2));
+            okHttpClientBuilder.connectTimeout(1, TimeUnit.MINUTES);
+            okHttpClientBuilder.readTimeout(1, TimeUnit.MINUTES);
+            okHttpClientBuilder.writeTimeout(1, TimeUnit.MINUTES);
             okHttpClientBuilder.hostnameVerifier(xHttpSSLBuilder.getHostnameVerifier());
         } catch (Exception e) {
             Log.e(TAG, "", e);
@@ -49,7 +53,10 @@ public final class XHttpClient {
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient().newBuilder();
         try {
             okHttpClientBuilder.sslSocketFactory(xHttpSSLBuilder.getSslSocketFactory(), xHttpSSLBuilder.getX509TrustManager());
-            okHttpClientBuilder.protocols(Arrays.asList(Protocol.HTTP_1_1));
+            okHttpClientBuilder.protocols(Arrays.asList(Protocol.HTTP_1_1, Protocol.HTTP_2));
+            okHttpClientBuilder.connectTimeout(1, TimeUnit.MINUTES);
+            okHttpClientBuilder.readTimeout(1, TimeUnit.MINUTES);
+            okHttpClientBuilder.writeTimeout(1, TimeUnit.MINUTES);
             okHttpClientBuilder.hostnameVerifier(xHttpSSLBuilder.getHostnameVerifier());
         } catch (Exception e) {
             Log.e(TAG, "", e);

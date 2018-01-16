@@ -42,11 +42,6 @@ import okio.Okio;
 public class XHttpObservable {
     private static final String TAG = XHttpObservable.class.getSimpleName();
 
-    private static final int TIME_OUT_SECONDS = 30;
-    /**
-     * 最多重试次数
-     */
-    private static final int RETRY_MAX_COUNT = 3;
 
     private static void addParametersForGet(XRequestBuilder builder, XRequest xRequest) {
         TreeMap<String, String> submitParameters = xRequest.getSubmitParameters();
@@ -194,14 +189,14 @@ public class XHttpObservable {
                 }
             }
         })
-                .timeout(TIME_OUT_SECONDS, TimeUnit.SECONDS)
+                .timeout(xRequest.getTimeoutSeconds(), TimeUnit.SECONDS)
                 .retry(new BiPredicate<Integer, Throwable>() {
                     @Override
                     public boolean test(Integer integer, Throwable throwable) throws Exception {
                         if(XHttpManager.getInstance().isDebug()){
                             Log.w(TAG, "throwable: " + throwable);
                         }
-                        boolean retry = integer < RETRY_MAX_COUNT && ExceptionUtil.isNetworkError(throwable);
+                        boolean retry = integer < xRequest.getRetryCount() && ExceptionUtil.isNetworkError(throwable);
                         if (retry && XHttpManager.getInstance().isDebug()) {
                             Log.w(TAG, "retry: " + integer + ", request: " + xRequest);
                         }

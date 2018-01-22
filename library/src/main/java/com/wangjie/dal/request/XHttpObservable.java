@@ -6,11 +6,11 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.wangjie.dal.request.core.XHttpClient;
-import com.wangjie.dal.request.core.request.XRequest;
 import com.wangjie.dal.request.core.body.XMultiBody;
 import com.wangjie.dal.request.core.interceptor.IOriginResponseInterceptor;
 import com.wangjie.dal.request.core.interceptor.IRequestInterceptor;
 import com.wangjie.dal.request.core.interceptor.IResponseInterceptor;
+import com.wangjie.dal.request.core.request.XRequest;
 import com.wangjie.dal.request.core.request.XRequestBuilder;
 import com.wangjie.dal.request.gson.DalGsonHelper;
 import com.wangjie.dal.request.util.ExceptionUtil;
@@ -165,7 +165,7 @@ public class XHttpObservable {
 
                     t = gson.fromJson(reader = new InputStreamReader(new ByteArrayInputStream(responseBytes)), httpResponseClass);
 //                    t = gson.fromJson(reader, httpResponseClass);
-                    if(XHttpManager.getInstance().isDebug()){
+                    if (XHttpManager.getInstance().isDebug()) {
                         Log.d(TAG, "xRequest-url: " + xRequest.getUrl());
                     }
                     if (null != t && XHttpManager.getInstance().isDebug()) {
@@ -177,7 +177,7 @@ public class XHttpObservable {
                         emitter.onComplete();
                     }
                 } catch (Throwable throwable) {
-                    if(XHttpManager.getInstance().isDebug()){
+                    if (XHttpManager.getInstance().isDebug()) {
                         Log.e(TAG, "xRequest-url: " + xRequest.getUrl());
                     }
                     Log.e(TAG, "", throwable);
@@ -193,10 +193,10 @@ public class XHttpObservable {
                 .retry(new BiPredicate<Integer, Throwable>() {
                     @Override
                     public boolean test(Integer integer, Throwable throwable) throws Exception {
-                        if(XHttpManager.getInstance().isDebug()){
+                        if (XHttpManager.getInstance().isDebug()) {
                             Log.w(TAG, "throwable: " + throwable);
                         }
-                        boolean retry = integer < xRequest.getRetryCount() && ExceptionUtil.isNetworkError(throwable);
+                        boolean retry = integer <= xRequest.getRetryCount() && ExceptionUtil.isNetworkError(throwable);
                         if (retry && XHttpManager.getInstance().isDebug()) {
                             Log.w(TAG, "retry: " + integer + ", request: " + xRequest);
                         }

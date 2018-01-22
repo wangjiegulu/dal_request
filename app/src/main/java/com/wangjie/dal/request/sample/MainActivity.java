@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.wangjie.dal.request.XHttpManager;
 import com.wangjie.dal.request.core.request.XRequestCreator;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -19,12 +20,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        XHttpManager.getInstance().setDebug(true);
+
         new XRequestCreator() // Inject XRequestCreator via Dagger2.
                 .createRequest("http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b1b15e88fa797225412429c1c50c122a1")
                 .addParameter("param1", 1)
                 .addParameter("param2", "content")
                 .addConfiguration("isSign", false)
                 .addConfiguration("otherKey", "asdfasdfdsaadf2342353")
+                .setRetryCount(2)
                 .observable(StringResponse.class)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

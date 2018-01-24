@@ -3,9 +3,28 @@ apply plugin: 'com.github.wangjiegulu.plg.rapidmetainf'
 
 rapidmetainf {
     metaInfName 'DAL_REQUEST_DEMO.properties'
-    metaInfProperties "key1=value1",
-            "key2=value2",
-            "key3=value3"
+
+    String[] infArray = new String[10]
+    // ./gradlew clean build -PcommandKey=commandValue
+    infArray[0] = "propertyFromCommand=${getParameter('commandKey')}"
+    for(int i = 1; i < infArray.length; i++){
+        infArray[i] = "array_item_key_$i=array_item_value_$i"
+    }
+
+    metaInfProperties infArray
+}
+
+def getParameter(String key) {
+    // -D
+    String value = System.getProperty(key)
+    if (null != value && value.length() > 0) {
+        return value
+    }
+    // -P
+    if (hasProperty(key)) {
+        return getProperty(key)
+    }
+    return null
 }
 
 android {

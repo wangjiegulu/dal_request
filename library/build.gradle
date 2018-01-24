@@ -1,4 +1,13 @@
 apply plugin: 'com.android.library'
+//apply from: 'metainf.gradle'
+apply plugin: 'com.github.wangjiegulu.plg.rapidmetainf'
+
+rapidmetainf {
+    metaInfName 'DAL_REQUEST.properties'
+    metaInfProperties "archiveName=$dbarchiveName",
+            "archiveVersion=$dbarchiveVersion",
+            "archiveUrl=$dbarchiveUrl"
+}
 
 android {
     compileSdkVersion global_compileSdkVersion

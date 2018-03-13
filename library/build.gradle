@@ -46,8 +46,23 @@ apply from: '../mavenupload/maven_push.gradle'
 rapidmetainf {
     metaInfName 'DAL_REQUEST.properties'
     metaInfProperties "archiveName=$POM_ARCHIVE_ID",
-            "archiveVersion=$POM_ARCHIVE_VERSION_NAME",
+            "archiveVersion=${getParameter('POM_ARCHIVE_VERSION_NAME', 'unknown')}",
             "archiveUrl=$POM_URL",
             "author=$POM_DEVELOPER_NAME",
             "authorEmail=$POM_DEVELOPER_EMAIL"
+}
+
+def getParameter(String key, Object defaultValue) {
+    Object result = defaultValue
+    // -D
+    String value = System.getProperty(key)
+    if (null != value && value.length() > 0) {
+        result = value
+    } else
+    // -P
+    if (hasProperty(key)) {
+        result = getProperty(key)
+    }
+    println "[getParameter] key: $key, result: $result, defaultValue: $defaultValue"
+    return result
 }

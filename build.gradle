@@ -23,9 +23,9 @@ allprojects {
         google()
         jcenter()
         maven { url 'http://nexus.dangbei.net/nexus/content/groups/public' }
-        maven {
-            url uri('/Users/wangjie/.m2/repository')
-        }
+//        maven {
+//            url uri('/Users/wangjie/.m2/repository')
+//        }
     }
 
     ext {

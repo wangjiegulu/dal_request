@@ -184,6 +184,5 @@ def getParameter(String key, Object defaultValue) {
     if (hasProperty(key)) {
         result = getProperty(key)
     }
-    println("[maven_push_task]getParameter, key: $key, value: $result")
     return result
 }

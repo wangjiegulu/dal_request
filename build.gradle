@@ -23,6 +23,9 @@ allprojects {
         google()
         jcenter()
         maven { url 'http://nexus.dangbei.net/nexus/content/groups/public' }
+        maven {
+            url uri('/Users/wangjie/.m2/repository')
+        }
     }
 
     ext {
@@ -43,11 +46,11 @@ allprojects {
         global_espressoVersion = '3.0.1'
     }
 
-    tasks.withType(Javadoc) {
-        options.addStringOption('Xdoclint:none', '-quiet')
-        options.addStringOption('encoding', 'UTF-8')
-        options.addStringOption('charSet', 'UTF-8')
-    }
+//    tasks.withType(Javadoc) {
+//        options.addStringOption('Xdoclint:none', '-quiet')
+//        options.addStringOption('encoding', 'UTF-8')
+//        options.addStringOption('charSet', 'UTF-8')
+//    }
 }
 
 task clean(type: Delete) {

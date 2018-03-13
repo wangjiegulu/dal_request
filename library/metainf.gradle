@@ -1,3 +1,5 @@
+// @Deprecated!
+// Use `apply plugin: 'com.github.wangjiegulu.plg.rapidmetainf'` instead.
 task createSDKInformation  {
 
     def resDir = new File(buildDir, 'generated/dbsdk/')

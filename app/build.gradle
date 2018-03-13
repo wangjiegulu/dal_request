@@ -59,6 +59,7 @@ dependencies {
 
     implementation project(':library')
 //    implementation "com.github.wangjiegulu:dal_request:1.0.2-SNAPSHOT"
+//    implementation "com.github.wangjiegulu:dal_request-local:0.0.1-SNAPSHOT"
 
     testImplementation "junit:junit:$global_junitVersion"
     androidTestImplementation "com.android.support.test:runner:$global_runnerVersion"

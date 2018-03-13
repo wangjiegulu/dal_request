@@ -2,13 +2,6 @@ apply plugin: 'com.android.library'
 //apply from: 'metainf.gradle'
 apply plugin: 'com.github.wangjiegulu.plg.rapidmetainf'
 
-rapidmetainf {
-    metaInfName 'DAL_REQUEST.properties'
-    metaInfProperties "archiveName=$dbarchiveName",
-            "archiveVersion=$dbarchiveVersion",
-            "archiveUrl=$dbarchiveUrl"
-}
-
 android {
     compileSdkVersion global_compileSdkVersion
     defaultConfig {
@@ -46,4 +39,15 @@ dependencies {
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$global_espressoVersion"
 }
 
-apply from: 'nexus_aar_db.gradle'
+// maven push
+apply from: '../mavenupload/maven_push.gradle'
+
+// META-INF properties
+rapidmetainf {
+    metaInfName 'DAL_REQUEST.properties'
+    metaInfProperties "archiveName=$POM_ARCHIVE_ID",
+            "archiveVersion=$POM_ARCHIVE_VERSION_NAME",
+            "archiveUrl=$POM_URL",
+            "author=$POM_DEVELOPER_NAME",
+            "authorEmail=$POM_DEVELOPER_EMAIL"
+}

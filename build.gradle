@@ -5,11 +5,13 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven { url 'http://nexus.dangbei.net/nexus/content/groups/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath 'com.android.tools.build:gradle:3.0.1'
         classpath('com.github.wangjiegulu:rapidmetainf:1.0.0') {
+            exclude group: 'com.android.tools.build', module: 'gradle'
+        }
+        classpath('com.github.wangjiegulu:rapidmavenpush:0.0.2') {
             exclude group: 'com.android.tools.build', module: 'gradle'
         }
 
@@ -22,10 +24,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url 'http://nexus.dangbei.net/nexus/content/groups/public' }
-//        maven {
-//            url uri('/Users/wangjie/.m2/repository')
-//        }
     }
 
     ext {

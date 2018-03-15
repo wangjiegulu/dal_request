@@ -1,6 +1,4 @@
 apply plugin: 'com.android.library'
-//apply from: 'metainf.gradle'
-apply plugin: 'com.github.wangjiegulu.plg.rapidmetainf'
 
 android {
     compileSdkVersion global_compileSdkVersion
@@ -40,14 +38,54 @@ dependencies {
 }
 
 // maven push
-apply from: '../mavenupload/maven_push.gradle'
+//apply from: '../mavenupload/maven_push.gradle'
 
-// META-INF properties
-rapidmetainf {
-    metaInfName 'DAL_REQUEST.properties'
-    metaInfProperties "archiveName=$POM_ARCHIVE_ID",
-            "archiveVersion=$POM_ARCHIVE_VERSION_NAME",
-            "archiveUrl=$POM_URL",
-            "author=$POM_DEVELOPER_NAME",
-            "authorEmail=$POM_DEVELOPER_EMAIL"
+apply plugin: 'com.github.wangjiegulu.plg.rapidmavenpush'
+rapidMavenPush {
+    printProperties = true
+    abortOnError = false
+    disable = false
+    defaultMavenType = 'local'
+    mavens {
+        maven {
+            mavenType = 'local'
+            propertyFiles = [
+                    file("${project.rootDir}/mavenupload/maven_common.properties"),
+                    file("${project.rootDir}/mavenupload/maven_local.properties")
+            ]
+            propertyInjectMode = 'replace'
+        }
+        maven {
+            mavenType = 'company'
+            propertyFiles = [
+                    file("${project.rootDir}/mavenupload/maven_common.properties"),
+                    file("${project.rootDir}/mavenupload/maven_company.properties")
+            ]
+            propertyInjectMode = 'replace'
+        }
+        maven {
+            mavenType = 'central'
+            propertyFiles = [
+                    file("${project.rootDir}/mavenupload/maven_common.properties"),
+                    file("${project.rootDir}/mavenupload/maven_central.properties")
+            ]
+            propertyInjectMode = 'replace'
+        }
+    }
 }
+
+import com.wangjiegulu.plg.rapidmavenpush.RapidParameterParser
+apply plugin: 'com.github.wangjiegulu.plg.rapidmetainf'
+project.afterEvaluate {
+    // META-INF properties
+    rapidmetainf {
+        RapidParameterParser rapidParameterParser = new RapidParameterParser(project)
+        metaInfName 'DAL_REQUEST.properties'
+        metaInfProperties "archiveName=${rapidParameterParser.getStringParameter('POM_ARCHIVE_ID')}",
+                "archiveVersion=${rapidParameterParser.getStringParameter('POM_ARCHIVE_VERSION_NAME')}",
+                "archiveUrl=${rapidParameterParser.getStringParameter('POM_URL')}",
+                "author=${rapidParameterParser.getStringParameter('POM_DEVELOPER_NAME')}",
+                "authorEmail=${rapidParameterParser.getStringParameter('POM_DEVELOPER_EMAIL')}"
+    }
+}
+

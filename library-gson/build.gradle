@@ -76,7 +76,7 @@ project.afterEvaluate {
     // META-INF properties
     rapidmetainf {
         RapidParameterParser rapidParameterParser = new RapidParameterParser(project)
-        metaInfName 'DAL_REQUEST.properties'
+        metaInfName 'DAL_REQUEST-GSON.properties'
         metaInfProperties "archiveName=${rapidParameterParser.getStringParameter('POM_ARCHIVE_ID')}",
                 "archiveVersion=${rapidParameterParser.getStringParameter('POM_ARCHIVE_VERSION_NAME')}",
                 "archiveUrl=${rapidParameterParser.getStringParameter('POM_URL')}",

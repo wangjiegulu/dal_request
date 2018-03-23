@@ -26,3 +26,4 @@ out/
 # Gradle files
 build/
 
+maven_*.properties

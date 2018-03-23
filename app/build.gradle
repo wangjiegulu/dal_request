@@ -58,6 +58,7 @@ dependencies {
     implementation "com.google.code.gson:gson:$global_gsonVersion"
 
     implementation project(':library')
+    implementation project(':library-gson')
 //    implementation "com.github.wangjiegulu:dal_request:1.0.2-SNAPSHOT"
 //    implementation "com.github.wangjiegulu:dal_request-db:0.0.1-SNAPSHOT"
 

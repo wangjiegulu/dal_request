@@ -4,8 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.wangjie.dal.request.XHttpManager;
-import com.wangjie.dal.request.core.request.XRequestCreator;
+import com.wangjiegulu.dal.request.XHttpManager;
+import com.wangjiegulu.dal.request.core.request.XRequestCreator;
+import com.wangjiegulu.dal.request.gson.DefaultGsonResponseConverter;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -20,7 +21,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        XHttpManager.getInstance().setDebug(true);
+        XHttpManager.getInstance()
+                .setResponseConverter(DefaultGsonResponseConverter.create())
+                .setDebug(true);
 
         new XRequestCreator() // Inject XRequestCreator via Dagger2.
                 .createRequest("http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b1b15e88fa797225412429c1c50c122a1")
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 .addConfiguration("otherKey", "asdfasdfdsaadf2342353")
                 .setRetryCount(2)
                 .observable(StringResponse.class)
+//                .<StringResponse>observable(TypeToken.get(StringResponse.class).getType())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<StringResponse>() {

@@ -63,7 +63,7 @@ rapidMavenPush {
             mavenType = 'central'
             propertyFiles = [
                     file("../mavenupload/maven_common.properties"),
-                    file("/mavenupload/maven_central.properties")
+                    file("mavenupload/maven_central.properties")
             ]
             propertyInjectMode = 'replace'
         }

@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.wangjiegulu.dal.request.XHttpManager;
-import com.wangjiegulu.dal.request.core.request.XRequestCreator;
 import com.wangjiegulu.dal.request.gson.DefaultGsonResponseConverter;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;

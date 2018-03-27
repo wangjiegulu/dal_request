@@ -1,4 +1,6 @@
-package com.wangjiegulu.dal.request.core.request;
+package com.wangjie.dal.request.sample;
+
+import com.wangjiegulu.dal.request.core.request.XRequest;
 
 /**
  * Author: wangjie

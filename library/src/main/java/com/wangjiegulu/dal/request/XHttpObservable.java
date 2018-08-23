@@ -9,6 +9,7 @@ import com.wangjiegulu.dal.request.core.converter.ResponseConverter;
 import com.wangjiegulu.dal.request.core.interceptor.IOriginResponseInterceptor;
 import com.wangjiegulu.dal.request.core.interceptor.IRequestInterceptor;
 import com.wangjiegulu.dal.request.core.interceptor.IResponseInterceptor;
+import com.wangjiegulu.dal.request.core.interceptor.IResponseRetryInterceptor;
 import com.wangjiegulu.dal.request.core.request.XRequest;
 import com.wangjiegulu.dal.request.core.request.XRequestBuilder;
 import com.wangjiegulu.dal.request.util.ExceptionUtil;
@@ -181,12 +182,22 @@ public class XHttpObservable {
                 .retry(new BiPredicate<Integer, Throwable>() {
                     @Override
                     public boolean test(Integer integer, Throwable throwable) throws Exception {
-                        if (XHttpManager.getInstance().isDebug()) {
-                            Log.w(TAG, "throwable: " + throwable);
+                        boolean isDebug = XHttpManager.getInstance().isDebug();
+
+                        IResponseRetryInterceptor responseRetryInterceptor = XHttpManager.getInstance().getResponseRetryInterceptor();
+                        if (null != responseRetryInterceptor) {
+                            if (isDebug) {
+                                Log.i(TAG, "ResponseRetryInterceptor is not null: " + responseRetryInterceptor.getClass().getCanonicalName() + ", " + throwable);
+                            }
+                            return responseRetryInterceptor.onResponseRetryIntercept(xRequest, integer, throwable);
+                        }
+
+                        if (isDebug) {
+                            Log.w(TAG, "ResponseRetryInterceptor is null, Throwable: " + throwable);
                         }
                         boolean retry = integer <= xRequest.getRetryCount() && ExceptionUtil.isNetworkError(throwable);
-                        if (retry && XHttpManager.getInstance().isDebug()) {
-                            Log.w(TAG, "retry: " + integer + ", request: " + xRequest);
+                        if (retry && isDebug) {
+                            Log.w(TAG, "Retry: " + integer + ", request: " + xRequest);
                         }
                         return retry;
                     }

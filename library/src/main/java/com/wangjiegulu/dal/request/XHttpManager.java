@@ -5,6 +5,7 @@ import com.wangjiegulu.dal.request.core.converter.ResponseConverter;
 import com.wangjiegulu.dal.request.core.interceptor.IOriginResponseInterceptor;
 import com.wangjiegulu.dal.request.core.interceptor.IRequestInterceptor;
 import com.wangjiegulu.dal.request.core.interceptor.IResponseInterceptor;
+import com.wangjiegulu.dal.request.core.interceptor.IResponseRetryInterceptor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +29,18 @@ public class XHttpManager {
      */
     private List<IResponseInterceptor> responseInterceptorList = new ArrayList<>();
 
+    /**
+     * 请求错误重试拦截器
+     */
+    private IResponseRetryInterceptor responseRetryInterceptor;
+
     private ResponseConverter responseConverter;
 
     public static XHttpManager getInstance() {
         return Holder.instance;
     }
 
-    public XHttpManager setDebug(boolean debug){
+    public XHttpManager setDebug(boolean debug) {
         this.isDebug = debug;
         return this;
     }
@@ -81,6 +87,15 @@ public class XHttpManager {
     public XHttpManager setResponseConverter(ResponseConverter responseConverter) {
         this.responseConverter = responseConverter;
         return this;
+    }
+
+    public XHttpManager setResponseRetryInterceptor(IResponseRetryInterceptor responseRetryInterceptor) {
+        this.responseRetryInterceptor = responseRetryInterceptor;
+        return this;
+    }
+
+    public IResponseRetryInterceptor getResponseRetryInterceptor() {
+        return responseRetryInterceptor;
     }
 
     private static class Holder {
